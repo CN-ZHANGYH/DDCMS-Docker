@@ -1,0 +1,26 @@
+version: "3"
+services:
+  node0:
+    image: fiscoorg/fiscobcos:v3.4.0
+    ports:
+      - "20200:20200"
+      - "30300:30300"
+    working_dir: /data
+    volumes:
+      - ./nodes/127.0.0.1/node0:/data
+    container_name: node0
+    command: /usr/local/bin/fisco-bcos -c config.ini  -g config.genesis
+    network_mode: "host"
+  node1:
+    image: fiscoorg/fiscobcos:v3.4.0
+    ports:
+      - "20201:20201"
+      - "30301:30301"
+    working_dir: /data
+    volumes:
+      - ./nodes/127.0.0.1/node1:/data
+    container_name: node1
+    command: /usr/local/bin/fisco-bcos -c config.ini  -g config.genesis
+    depends_on:
+      - "node0"
+    network_mode: "host"

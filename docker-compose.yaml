@@ -1,0 +1,42 @@
+version: '3'
+services:
+  ddcms-mysql:
+    build:
+      context: ./mysql  
+    ports:
+      - "3306:3306"
+    volumes:
+      - /usr/local/docker/mysql/conf:/etc/mysql/conf.d
+      - /usr/local/docker/mysql/data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: Aa123123.
+      DDCMS_USER: ddcms
+      DDCMS_PASSWORD: ddcms
+    container_name: ddcms-mysql
+    networks:
+      - ddcms-network
+  ddcms-server:
+    build:
+      context: ./ddcms
+      args:
+        - NODE0=10.3.108.51
+        - NODE1=10.3.108.51
+        - DB_USERNAME=ddcms
+        - DB_PASSWORD=ddcms
+        - DB_NAME=ddcms
+        - SECRET=Ok2Q0AZiRTT1N6CJ3q8ZvQOk2Q0AZiRTT1N6CJ3q8ZvQOk2Q0AZiRTT1N6CJ3q8ZvQOk2Q0AZiRTT1N6CJ3q8ZvQOk2Q0AZiRTT1N6CJ3q8ZvQ
+        - USER_NAME=admin
+        - USER_PASSWORD=admin
+        - PRIVATE_KEY=0x5a0f8cfa0593fc9f0437d6f9988648cf56ddd140f815e30448054d5ef6717a0b
+        - ACCOUNT_ADDRESS=0x37a44585bf1e9618fdb4c62c4c96189a07dd4b48
+        - PRODUCT_ADDRESS=0x31ed5233b81c79d5adddeef991f531a9bbc2ad01
+        - DATA_SCHEMA_ADDRESS=0x6546c3571f17858ea45575e7c6457dad03e53dbb
+    container_name: ddcms-server
+    ports:
+      - "10880:10880" # Adjust the port as needed
+    depends_on:
+      - ddcms-mysql
+    networks:
+      - ddcms-network
+networks:
+  ddcms-network:
