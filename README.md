@@ -70,8 +70,8 @@ drwxr-xr-x  2 root root 4096 Sep  3 02:36 mysql/
 ```shell
 root@node1:~/ddcms-service# tree -L 3
 .
-├── ddcms								# DDCMS-Service后端镜像构建目录
-│   ├── DDCMS-Service				   # 未编译的项目 直接放到镜像中去编译
+├── ddcms				# DDCMS-Service后端镜像构建目录
+│   ├── DDCMS-Service	# 未编译的项目 直接放到镜像中去编译
 │   │   ├── LICENSE
 │   │   ├── README.md
 │   │   ├── build.gradle
@@ -82,8 +82,8 @@ root@node1:~/ddcms-service# tree -L 3
 │   │   ├── settings.gradle
 │   │   └── src
 │   ├── Dockerfile
-│   ├── ca.crt							# 这里的节点连接证书不用多说，直接控制台拷贝到当前目录
-│   ├── jdk-8u281-linux-x64.tar.gz		# 可以下载当前版本的jdk版本 我默认使用这个
+│   ├── ca.crt			# 这里的节点连接证书不用多说，直接控制台拷贝到当前目录
+│   ├── jdk-8u281-linux-x64.tar.gz	# 可以下载当前版本的jdk版本 我默认使用这个
 │   ├── sdk.crt
 │   └── sdk.key
 ├── docker-compose.yaml
@@ -103,19 +103,19 @@ root@node1:~/ddcms-service# tree -L 3
 │   │   ├── lib
 │   │   ├── log
 │   │   └── start.sh
-│   ├── console.tar.gz					# 控制台压缩包
-│   ├── contracts						# DDCMS-Contract拷贝的合约
+│   ├── console.tar.gz				# 控制台压缩包
+│   ├── contracts					# DDCMS-Contract拷贝的合约
 │   │   ├── AccountContract.sol
 │   │   ├── DataSchemaContract.sol
 │   │   ├── ProductContract.sol
 │   │   └── libs
-│   ├── docker-compose.yaml				# docker-compose部署FISCO BCOS文件
+│   ├── docker-compose.yaml			# docker-compose部署FISCO BCOS文件
 │   └── nodes
 │       ├── 127.0.0.1
 │       └── ca
-└── mysql								# MySQL镜像构建目录
+└── mysql							# MySQL镜像构建目录
     ├── Dockerfile
-    ├── db-script.sql					# DDCMS-Service项目中拷贝过来
+    ├── db-script.sql				# DDCMS-Service项目中拷贝过来
     └── mysql_init.sh
 ```
 
@@ -355,7 +355,7 @@ services:
     build:
       context: ./ddcms
       args:
-      	# node0的节点IP
+      	# node0的节点IP  这是host网络模式所以使用本机IP地址
         - NODE0=10.3.108.51
         # node1的节点IP
         - NODE1=10.3.108.51	 
